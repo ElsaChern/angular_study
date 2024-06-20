@@ -1,8 +1,21 @@
 <main>
-  <header class="brand-name">
-    <p>Homework #1</p>
+  <header>
+    <p>Homework</p>
   </header>
   <section class="content">
-    <app-input></app-input>
+    <form (ngSubmit)="onSubmit()">
+      <input type="text" [(ngModel)]="furnitureInput" name="furniture" required>
+      <button type="submit">Submit</button>
+    </form>
+    <ng-container *ngIf="!isValid || !furnitureInput">
+      <p>This value is invalid or empty</p>
+    </ng-container>
+    <ng-container *ngIf="isValid">
+      <img [src]="imageSrc" alt="{{furnitureInput}}" width="700">
+    </ng-container>
+
+    <app-sofa [formInput]="furnitureInput" (dataReceived)="logMessage($event)"></app-sofa>
+    <app-chair [formInput]="furnitureInput" (dataReceived)="logMessage($event)"></app-chair>
+    <app-table [formInput]="furnitureInput" (dataReceived)="logMessage($event)"></app-table>
   </section>
 </main>
